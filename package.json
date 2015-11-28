@@ -1,0 +1,22 @@
+{
+  "name": "riot-seed",
+  "version": "1.0.4",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "test.js"
+  },
+  "dependencies": {
+  },
+  "bin": {
+    "riotseed": "./bin/riotseed"
+  },
+  "devDependencies": {
+    
+  },
+  "author": "xieyu33333",
+  "license": "ISC"
+}

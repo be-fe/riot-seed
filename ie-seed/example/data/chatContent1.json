@@ -1,0 +1,8 @@
+{ "data": [
+    {"type": 1, "name": "robot", "content": "Hi, 吃了么？"},
+    {"type": 2, "name": "xieyu03", "content": "没呢？"},
+    {"type": 1, "name": "robot", "content": "去吃吗？"},
+    {"type": 2, "name": "xieyu03", "content": "去，哪儿吃？"},
+    {"type": 1, "name": "robot", "content": "食分钟怎么样"},
+    {"type": 2, "name": "xieyu03", "content": "那还不如吃食堂"}
+]}

@@ -1,0 +1,8 @@
+{"data": [
+    {"type": 1, "name": "robot", "content": "周末有空吗？"},
+    {"type": 2, "name": "leiquan01", "content": "有，啥事？"},
+    {"type": 1, "name": "robot", "content": "去看电影不？"},
+    {"type": 2, "name": "leiquan01", "content": "最近有啥好看的？"},
+    {"type": 1, "name": "robot", "content": "美国队长3"},
+    {"type": 2, "name": "leiquan01", "content": "不错哦，那去呗"}
+]}

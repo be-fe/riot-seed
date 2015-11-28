@@ -1,0 +1,49 @@
+#!/bin/bash
+
+fileName='riot-seed-project'
+isIE=0
+folder='seed'
+
+for arg in "$@"
+do
+    if test $arg = '--ie'
+    then 
+        isIE=1
+    fi
+
+    if test $arg = $1 && test $arg != '--ie'
+    then 
+        fileName=$arg
+        echo 'Project Name :'$fileName
+    fi
+done
+
+# 处理带软链接时的相对路径
+_current_path() {
+    SOURCE=${BASH_SOURCE[0]}
+    DIR=$( dirname "$SOURCE" )
+    while [ -h "$SOURCE" ]
+    do
+        SOURCE=$(readlink "$SOURCE")
+        [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+        DIR=$( cd -P "$( dirname "$SOURCE"  )" && pwd )
+    done
+    DIR=$( cd -P "$( dirname "$SOURCE" )" && pwd )
+    echo $DIR
+}
+#mkdir $fileName
+echo "copying files........"
+if test $isIE -eq 0
+then
+    echo 'use riot2.3.11'
+fi
+
+if test $isIE -eq 1
+then
+    folder='ie-seed'
+    echo 'use riot2.2.4'
+fi
+
+cp -R $(cd $(_current_path); cd ../$folder; pwd;) $(pwd)
+mv $folder $fileName
+
