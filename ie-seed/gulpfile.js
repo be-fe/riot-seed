@@ -75,11 +75,12 @@ gulp.task('usemin', function() {
 /*
  * 拷贝 src/imgs 中的图片到 dist/imgs
  */
-gulp.task('moveImg', function() {
-    return gulp.src('./src/imgs/*').pipe(gulp.dest('dist/imgs'));
+gulp.task('move', function() {
+    gulp.src('./src/imgs/*').pipe(gulp.dest('dist/imgs'));
+    gulp.src(['./src/dep/js/html5-shiv.js', './src/dep/js/es5-shim.js']).pipe(gulp.dest('dist/dep/js/'));
 });
 
 /*
  * 编译打包
  */
-gulp.task('dist', ['usemin', 'moveImg'], function () {});
+gulp.task('dist', ['usemin', 'move'], function () {});
