@@ -66,13 +66,27 @@ riot.tag('contacts', '<div class="panel panel-default"> <div class="panel-headin
 riot.tag('content', '<contacts></contacts> <chat-content></chat-content> <route></route>', function(opts) {
 
 });
-riot.tag('history', '<h1>历史消息</h1> <route></route>', function(opts) {
+riot.tag('history-detail', '<div class="panel panel-default"> <div class="panel-heading">历史数据详情</div> <div class="panel-body"> 这里是<b>{ mounth }</b>月历史数据详情 </div> </div>', function(opts) {
+
+    var self = this;
+    self.mounth = riot.routeParams.id;
+    riot.route(function() {
+        self.mounth = riot.routeParams.id;
+        self.update();
+    })
+    
+
+});
+riot.tag('history-show', '<div class="panel panel-default"> <div class="panel-heading">历史数据总览</div> <div class="panel-body"> 这里是历史数据总览 </div> </div>', function(opts) {
+
+});
+riot.tag('history', '<div class="col-xs-3"> <div class="panel panel-default"> <div class="panel-heading">历史数据列表</div> <div class="panel-body"> <ul> <a href="#history/show" class="list-group-item">历史数据总览</a> <a href="#history/1" class="list-group-item">1月数据</a> <a href="#history/2" class="list-group-item">2月数据</a> <a href="#history/3" class="list-group-item">3月数据</a> <a href="#history/4" class="list-group-item">4月数据</a> <a href="#history/5" class="list-group-item">5月数据</a> <a href="#history/6" class="list-group-item">6月数据</a> </ul> </div> </div> </div> <route class="col-xs-8"></route>', function(opts) {
 
 });
 riot.tag('login', '<form> <input type="text"> <input type="password"> <input type="submit" value="登 录"> </form>', function(opts) {
 
 });
-riot.tag('nav-bar', '<nav class="navbar navbar-default"> <div class="container-fluid"> <div class="navbar-header"> <a class="navbar-brand" href="#/main">Riot Seed</a> </div> <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> <ul class="nav navbar-nav"> <li class="active"><a href="#/main">聊天</a></li> <li><a href="#/history">历史消息</a></li> <li><a href="#/count">数据统计</a></li> <li><a href="#/setting">设置</a></li> <li><a href="#/admin">管理</a></li> </ul> </div> </div> </nav>', function(opts) {
+riot.tag('nav-bar', '<nav class="navbar navbar-default"> <div class="container-fluid"> <div class="navbar-header"> <a class="navbar-brand" href="#/main">Riot Seed</a> </div> <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> <ul class="nav navbar-nav"> <li class="active"><a href="#/main?a=1">聊天</a></li> <li><a href="#/history">历史消息</a></li> <li><a href="#/count">数据统计</a></li> <li><a href="#/setting">设置</a></li> <li><a href="#/admin">管理</a></li> </ul> </div> </div> </nav>', function(opts) {
         
     
 });

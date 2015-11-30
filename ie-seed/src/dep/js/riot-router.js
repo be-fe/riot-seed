@@ -62,6 +62,7 @@
                     var parentNode = self.root.parentNode;
                     var testDoms = document.querySelectorAll(route.parent);
                     if ([].indexOf.call(testDoms, parentNode) > -1) {
+                        self.tagObj = null;
                         self.root.innerHTML = '';
                         self.root.appendChild(newDom);
                         self.tagObj = riot.mount(newDom)[0];
@@ -152,7 +153,10 @@
                 }
             }
             self.on('mount', function() {
-                riot.route(testRoute);
+                if (!riot.testRoute) {
+                    riot.route(testRoute);
+                    riot.testRoute = true;
+                }
                 riot.route.exec(testRoute);
             });
             

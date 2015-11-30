@@ -8,7 +8,8 @@ riotRouter({
         { route: 'admin', tag: 'admin'},
     ],
     'history' : [
-        { route: 'history/:id', tag: 'history-detail', depend: 'history'}
+        { route: 'history/show', tag: 'history-show'},
+        { route: 'history/:id', tag: 'history-detail'}
     ]
 });
 

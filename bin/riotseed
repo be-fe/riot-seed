@@ -31,8 +31,7 @@ _current_path() {
     DIR=$( cd -P "$( dirname "$SOURCE" )" && pwd )
     echo $DIR
 }
-#mkdir $fileName
-echo "copying files........"
+
 if test $isIE -eq 0
 then
     echo 'use riot2.3.11'
@@ -44,6 +43,7 @@ then
     echo 'use riot2.2.4'
 fi
 
+echo "copying files........"
 cp -R $(cd $(_current_path); cd ../$folder; pwd;) $(pwd)
 mv $folder $fileName
-
+echo "Project "$fileName " create success!"

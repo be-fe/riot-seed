@@ -1,5 +1,5 @@
 <nav-bar>
-    <style scope>
+    <style>
         
     </style>
     <div class="brand">Riot Seed</div>

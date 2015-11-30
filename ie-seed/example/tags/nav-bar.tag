@@ -6,7 +6,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/main">聊天</a></li>
+                    <li class="active"><a href="#/main?a=1">聊天</a></li>
                     <li><a href="#/history">历史消息</a></li>
                     <li><a href="#/count">数据统计</a></li>
                     <li><a href="#/setting">设置</a></li>

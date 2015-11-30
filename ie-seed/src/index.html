@@ -5,7 +5,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
         <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <!-- build:css ../dist/css/main.min.css -->
         <link rel="stylesheet" href="css/main.css">
+        <!-- endbuild -->
         <!--[if lt IE9]> 
             <script src="../dep/es5-shim.min.js"></script>
             <script src="../dep/html5shiv.min.js"></script>
@@ -14,13 +16,15 @@
     <body>
         <app></app>
 
+        <!-- build:js ../dist/js/main.min.js -->
         <script src="dep/js/riot2.2.4.js"></script>
         <script src="dep/js/common.js"></script>
         <script src="dep/js/riot-flux.js"></script>
         <script src="dep/js/riot-router.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/all.js"></script>
+        <!-- endbuild -->
         <script>
-            riot.mount('*');
+            riot.mount('app');
         </script>
     </body>
 </html>

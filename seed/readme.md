@@ -16,5 +16,5 @@ es5shim: IE8下es5语法兼容
 
 ### 命令行
 
-    riotseed foldername --ie  //在当前目录创建基于2.2.4的IE兼容版本种子工程
+    riotseed foldername --ie  //在当前目录创建基于2.2.4的IE8兼容版本种子工程
     riotseed foldername      //在当前目录创建基于最新版本的种子工程
