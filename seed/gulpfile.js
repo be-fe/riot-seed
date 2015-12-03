@@ -27,7 +27,7 @@ gulp.task('example-riot', function () {
  */
 gulp.task('example', ['example-riot'], function () {
     connect.server({
-        root: 'example',
+        root: './',
         livereload: true,
         port: 8008
     });
