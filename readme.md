@@ -67,9 +67,9 @@ Riot seed 会一直保持一个Riot 2.2.4版本，这是最后一个宣称可兼
 第四步，将store和组件中的属性进行绑定
 
     flux.bind.call(this, {
-        store: storeA, 
-        name: 'dataA', 
-        params: {},
+        store: store, 
+        name: 'data', 
+        params: {id: 1},
         refresh: true,
         success: function() { //绑定成功后的回调 },
         error: function() { //绑定失败后的回调, 需要在get方法中trigger('error')才会触发。 }
