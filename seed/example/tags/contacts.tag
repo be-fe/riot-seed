@@ -27,16 +27,28 @@
 
     <script>
         var self = this;
-        flux.bind.call(this, store.contacts, 'data');
-        flux.bind.call(this, store.queue, 'queue');
-
-        self.on('flux-binded', function(property) {
-            if (property === 'data') {
+        flux.bind.call(this, {
+            store: store.contacts,
+            name: 'data',
+            success: function() {
                 self.data[0].active = true;
                 store.msg.get(self.data[0]);
                 self.update();
             }
-        })
+        });
+
+        flux.bind.call(this, {
+            store: store.queue,
+            name: 'queue'
+        });
+
+//        self.on('flux-binded', function(property) {
+//            if (property === 'data') {
+//                self.data[0].active = true;
+//                store.msg.get(self.data[0]);
+//                self.update();
+//            }
+//        })
         
         changeContent(e) {
             flux.update(store.chatContent, {id: e.item.item.id});

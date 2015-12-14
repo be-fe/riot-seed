@@ -16,6 +16,10 @@
     
     <script>
         var self = this;
-        flux.bind.call(this, store.chatContent, 'data', {id : 1});
+        flux.bind.call(this, {
+            store: store.chatContent,
+            name:'data',
+            params:{id : 1}
+        });
     </script>
 </chat-content>

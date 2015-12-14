@@ -7,8 +7,7 @@
     </div>
 
     var self = this;
-    self.mounth = riot.routeParams.id;
-    riot.route(function() {
+    self.on('mount', function() {
         self.mounth = riot.routeParams.id;
         self.update();
     })

@@ -34,25 +34,46 @@
         }
     };
 
-    flux.bind = flux.connect = function(store, property, params) {
+    flux.bind = flux.connect = function(options) {
+
         var self = this;
-        var judgeBinded = function() {
-            if (!store.judge || store.judge.indexOf(self) === -1 ) {
-                self.trigger('flux-binded', property);
+        var store = options.store;
+        var property = options.name || options.property;
+        var refresh = options.refresh;
+        var params = options.params;
+
+        var judgeBinded = function(result) {
+            if (!store.judge) {
+                options.success && options.success(result);
                 store.judge = [];
                 store.judge.push(self);
             }
-        }
-        var onComplete = function() {
+            else if (store.judge || store.judge.indexOf(self) === -1 ) {
+                options.success && options.success(result);
+                store.judge.push(self);
+            }
+        };
+
+        var onComplete = function(result) {
             store.status = 'complete';
             self[property] = store.data;
-            judgeBinded();
+            judgeBinded(result);
             self.update();
-        }
+        };
+
+        var onError = function(err) {
+            options.error && options.error(err);
+        };
+
         if (store.data && store.status === 'complete') {
-            self[property] = store.data;
-            judgeBinded()
-            self.update();
+            if (refresh !== true) {
+                self[property] = store.data;
+                judgeBinded();
+                self.update();
+            }
+            else {
+                flux.update(store, params);
+            }
         }
         else {
             if (store.status !== 'getting') {
@@ -60,11 +81,12 @@
             }
         }
         store.on('complete', onComplete);
+        store.on('error', onError);
     };
 
     flux.update = function(store, params) {
         if (store.get && utils.isFunction(store.get)) {
-            store.status = 'getting'
+            store.status = 'getting';
             store.get(params);
         }
     };

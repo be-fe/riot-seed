@@ -10,5 +10,10 @@
         </div>
     </div>
 
-    flux.bind.call(this, store.msg, 'data');
+    <script>
+        flux.bind.call(this, {
+            store: store.msg,
+            name: 'data'
+        });
+    </script>
 </contact-msg>

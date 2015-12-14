@@ -9,7 +9,11 @@ riotRouter({
     ],
     'history' : [
         { route: 'history/show', tag: 'history-show'},
-        { route: 'history/:id', tag: 'history-detail'}
+        { route: 'history/:id', tag: 'history-detail'},
+    ],
+
+    'setting' : [
+        { route: 'setting/:setId', tag: 'setting-detail'}
     ]
 });
 

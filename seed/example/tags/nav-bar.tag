@@ -6,30 +6,17 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="{ active: active }" each="{ data }" onclick="{ choose }">
-                        <a href="{ url }" >{ name }</a>
-                    </li>
+                    <li class="active"><a href="#/main?a=1">聊天</a></li>
+                    <li><a href="#/history">历史消息</a></li>
+                    <li><a href="#/count">数据统计</a></li>
+                    <li><a href="#/setting">设置</a></li>
+                    <li><a href="#/admin">管理</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <script>
-        var self = this;
-        self.data = [
-            {name: '聊天', url: '#/main', active: true},
-            {name: '历史消息', url: '#/history', active: false},
-            {name: '数据统计', url: '#/count', active: false},
-            {name: '设置', url: '#/setting', active: false},
-            {name: '管理', url: '#/admin', active: false},
-        ]
-
-        choose(e) {
-            self.data.forEach(function(item) {
-                item.active = false;
-            });
-            e.item.active = true;
-            location.href = e.item.url;
-        }
+        
     </script>
 </nav-bar>

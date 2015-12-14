@@ -113,11 +113,6 @@
                         }
                         else {
                             matchCount++
-                            if (arg && matchParams) {
-                                var paramsKey = matchParams[0].replace(':', '');
-                                var paramsValue = argArr[j]
-                                riot.routeParams[paramsKey] = paramsValue;
-                            }
                         }
                         
                     }
@@ -125,7 +120,25 @@
                         matchArr.push(routes[i])
                     }
                     if (matchCount === routes[i].args.length && matchCount === l) {
+                        //当匹配长度===url事件长度时，完全匹配。
                         realMatchCount = l;
+                        var paramsObj = {};
+
+                        for (j = 0; j < routes[i].args.length; j++) {
+                            var arg = routes[i].args[j];
+                            var matchParams = arg.match(/^:\w+/);
+                            if (arg && matchParams) {
+                                var paramsKey = matchParams[0].replace(':', '');
+                                var paramsValue = argArr[j]
+                                paramsObj[paramsKey] =  paramsValue;
+                            }
+                        }
+
+                        for (i in riot.routeParams) {
+                            delete riot.routeParams[i];
+                        }
+                        extend(riot.routeParams, paramsObj);
+
                         match = true;
                     }
                 }
@@ -144,6 +157,9 @@
 
                 extend(riot.routeParams, getParameterObj());
 
+                riot.routeParams = riot.observable(riot.routeParams);
+                riot.routeParams.trigger('changed');
+
                 if (!match) {
                     for (i = 0; i < routes.length; i++) {
                         if (routes[i].default) {
@@ -161,7 +177,7 @@
             });
             
         });
-    }
+    };
 
     if (typeof require === 'function' && typeof module === 'object' && module && typeof exports === 'object' && exports) {
         module.exports = riotRouter;

@@ -1,7 +1,7 @@
 (function(global, riot) {
     //bug: 子级不匹配的情况下不会跳转到default
-
     riot.routeParams = {};
+    riot.observable(riot.routeParams);
 
     var extend = function(src, obj) {
         for (var key in obj) {
@@ -9,25 +9,6 @@
                 src[key] = obj[key];
             }
         }
-    };
-
-    var getParameterObj = function(urlStr) {
-        var obj = {};
-        var url = urlStr || location.href;
-        var len = url.length;
-        var offset = url.indexOf("?") + 1;
-        var str = url.substr(offset, len);
-        var args = str.split("&");
-        len = args.length;
-        for (var i = 0; i < len; i++) {
-            str = args[i];
-            var arg = str.split("=");
-            if (args.length <= 1) break;
-            else {
-                obj[arg[0]] = arg[1]
-            }
-        }
-        return obj;
     };
 
     var riotRouter = function(obj) {
@@ -68,11 +49,15 @@
                     var firstChildTagName = firstChild.tagName;
                 }
                 if (route && route.tag && route.tag.toUpperCase() !== firstChildTagName || fresh) {
-                    
+
                     var newDom = document.createElement(route.tag);
                     var parentNode = self.root.parentNode;
                     var testDoms = document.querySelectorAll(route.parent);
                     if ([].indexOf.call(testDoms, parentNode) > -1) {
+                        if (self.tagObj) {
+                            self.tagObj.unmount();
+                            self.tagObj = null;
+                        }
                         self.root.innerHTML = '';
                         self.root.appendChild(newDom);
                         self.tagObj = riot.mount(newDom)[0];
@@ -129,14 +114,10 @@
                         }
                         else {
                             matchCount++
-                            if (arg && matchParams) {
-                                var paramsKey = matchParams[0].replace(':', '');
-                                var paramsValue = argArr[j]
-                                riot.routeParams[paramsKey] = paramsValue;
-                            }
                         }
-                        
+
                     }
+
                     if (matchCount === routes[i].args.length) {
                         matchArr.push(routes[i])
                         //表示部分匹配成功，例如#/test/1 同时匹配到了 /test 和 /test/:id
@@ -144,10 +125,27 @@
                     if (matchCount === routes[i].args.length && matchCount === l) {
                         //当匹配长度===url事件长度时，完全匹配。
                         realMatchCount = l;
+                        var paramsObj = {};
+
+                        for (j = 0; j < routes[i].args.length; j++) {
+                            var arg = routes[i].args[j];
+                            var matchParams = arg.match(/^:\w+/);
+                            if (arg && matchParams) {
+                                var paramsKey = matchParams[0].replace(':', '');
+                                var paramsValue = argArr[j]
+                                paramsObj[paramsKey] =  paramsValue;
+                            }
+                        }
+
+                        for (i in riot.routeParams) {
+                            delete riot.routeParams[i];
+                        }
+                        extend(riot.routeParams, paramsObj);
+
                         match = true;
                     }
                 }
-                
+
                 if (matchArr.length === 1 && match === true) {
                     mountContent(matchArr[0], true);
                 }
@@ -166,6 +164,8 @@
                 }
 
                 extend(riot.routeParams, riot.route.query());
+                riot.routeParams.trigger('changed');
+
 
                 // 如果没有匹配成功，寻找是否存在default参数的路由，如果存在，则使用default
                 if (!match) {
@@ -188,7 +188,7 @@
                 }
                 riot.route.exec();
             });
-            
+
         }, '{}');
     }
 
