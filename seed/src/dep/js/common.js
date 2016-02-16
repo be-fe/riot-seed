@@ -162,13 +162,17 @@ var utils = {
         }
     },
 
-    toggleClass: function (obj, cls) {
-        if (utils.hasClass(obj, cls)) {
-            var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-            obj.className = obj.className.replace(reg, ' ');
-        }
-        else {
-            obj.className += " " + cls;
+    toggleClass: function (obj, cls, enabled) {
+        if (typeof enabled === 'undefined') {
+            if (utils.hasClass(obj, cls)) {
+                var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+                obj.className = obj.className.replace(reg, ' ');
+            }
+            else {
+                obj.className += " " + cls;
+            }
+        } else {
+            enabled ? utils.addClass(obj, cls) : utils.removeClass(obj.cls);
         }
     },
 
@@ -212,6 +216,14 @@ var utils = {
                 src[key] = obj[key];
             }
         }
+    },
+    
+    $: function (sel) {
+        return document.querySelector(sel);
+    },
+
+    $$: function (sel) {
+        return document.querySelectorAll(sel);
     }
 };
 
