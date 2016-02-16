@@ -217,7 +217,7 @@ var utils = {
             }
         }
     },
-    
+
     $: function (sel) {
         return document.querySelector(sel);
     },
