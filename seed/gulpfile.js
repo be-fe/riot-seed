@@ -41,6 +41,8 @@ gulp.task('example', ['example-riot'], function () {
         },
         port: config.example.port
     });
+
+    console.log('======> 访问 http://localhost:' + config.example.port + '/example <======');
     return gulp.watch(['example/tags/*.tag', 'example/tags/*/*.tag', 'example/js/common.js', 'example/css/*.css'], ['example-riot']);
 });
 
