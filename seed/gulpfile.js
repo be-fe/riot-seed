@@ -11,6 +11,13 @@ var minifyHtml = require('gulp-minify-html');
 var uglify = require('gulp-uglify');
 var rev = require('gulp-rev');
 var connect = require('gulp-connect');
+var fs = require('fs');
+
+if (!fs.existsSync('./dev/config.js')) {
+    fs.writeFileSync('./dev/config.js', fs.readFileSync('./dev/config.example.js'));
+}
+var config = require('./dev/config');
+
 /*
  * 执行example的riot编译
  */
@@ -28,8 +35,11 @@ gulp.task('example-riot', function () {
 gulp.task('example', ['example-riot'], function () {
     connect.server({
         root: './',
-        livereload: true,
-        port: 8008
+        livereload: {
+            port: config.example.liveReloadPort,
+            src: 'http://localhost:' + config.example.liveReloadPort + '/livereload.js?snipver=1'
+        },
+        port: config.example.port
     });
     return gulp.watch(['example/tags/*.tag', 'example/tags/*/*.tag', 'example/js/common.js', 'example/css/*.css'], ['example-riot']);
 });
@@ -51,8 +61,11 @@ gulp.task('riot',  function () {
 gulp.task('default', ['riot'], function () {
     connect.server({
         root: 'src',
-        livereload: true,
-        port: 8008
+        livereload: {
+            port: config.project.liveReloadPort,
+            src: 'http://localhost:' + config.project.liveReloadPort + '/livereload.js?snipver=1'
+        },
+        port: config.project.port
     });
     return gulp.watch(['src/tags/*.tag', 'src/tags/*/*.tag'], ['riot']);
 });
