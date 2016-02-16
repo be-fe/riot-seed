@@ -65,6 +65,9 @@
             options.error && options.error(err);
         };
 
+        store.on('complete', onComplete);
+        store.on('error', onError);
+
         if (store.data && store.status === 'complete') {
             if (refresh !== true) {
                 self[property] = store.data;
@@ -80,8 +83,6 @@
                 flux.update(store, params);
             }
         }
-        store.on('complete', onComplete);
-        store.on('error', onError);
     };
 
     flux.update = function(store, params) {
