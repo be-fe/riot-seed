@@ -22,7 +22,7 @@
                 var tag = obj[i][j].tag;
                 var def = obj[i][j]["default"];
                 var args = route.split('/')
-                for (k = 0; k < args.length; k++) {
+                for (var k = 0; k < args.length; k++) {
                     if (!args[k]) {
                         args.splice(k, 1);
                     }
@@ -119,7 +119,7 @@
                     }
 
                     if (matchCount === routes[i].args.length) {
-                        matchArr.push(routes[i])
+                        matchArr.push(routes[i]);
                         //表示部分匹配成功，例如#/test/1 同时匹配到了 /test 和 /test/:id
                     }
                     if (matchCount === routes[i].args.length && matchCount === l) {
@@ -132,7 +132,7 @@
                             var matchParams = arg.match(/^:\w+/);
                             if (arg && matchParams) {
                                 var paramsKey = matchParams[0].replace(':', '');
-                                var paramsValue = argArr[j]
+                                var paramsValue = argArr[j];
                                 paramsObj[paramsKey] =  paramsValue;
                             }
                         }
@@ -190,7 +190,7 @@
             });
 
         }, '{}');
-    }
+    };
 
     riot.route.start();
 
