@@ -17,10 +17,9 @@ Riot seed 会一直保持一个Riot 2.2.4版本，这是最后一个宣称可兼
 
 ### 安装和使用
 
-    npm install riot-seed -g  //全局安装，安装后可以通过命令行快速创建项目
+    npm install riot-new -g  //全局安装，安装后可以通过命令行快速创建项目
 
-    riotseed foldername --ie  //在当前目录创建基于2.2.4的IE兼容版本种子工程
-    riotseed foldername      //在当前目录创建基于最新版本的种子工程
+    riotnew foldername      //在当前目录创建基于最新版本的种子工程
     (当前版本采用的是shell脚本，无法在windows下运行)
 
 项目创建成功后使用：

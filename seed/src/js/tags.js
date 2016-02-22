@@ -1,3 +1,6 @@
+//riot tags需要的依赖
+import flux from 'riot-seed-flux';
+import store from './store';
 riot.tag2('app-main', '<h1>hello {page.name}</h1> <a href="#/somebody">goto hello somebody</a>', '', '', function(opts) {
         var self = this;
         flux.bind.call(self, {
