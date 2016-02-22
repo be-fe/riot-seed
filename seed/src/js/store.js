@@ -1,3 +1,5 @@
+import flux from 'riot-seed-flux'
+
 var store = {};
 store.page = flux.createStore({
     get: function() {
@@ -12,3 +14,5 @@ store.page = flux.createStore({
         this.trigger('complete');
     }
 });
+
+export default store;

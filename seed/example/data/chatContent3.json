@@ -1,8 +1,0 @@
-{"data": [
-    {"type": 1, "name": "robot", "content": "问你个问题"},
-    {"type": 2, "name": "lipenghui", "content": "啥问题"},
-    {"type": 1, "name": "robot", "content": "你今年多大了？"},
-    {"type": 2, "name": "lipenghui", "content": "27"},
-    {"type": 1, "name": "robot", "content": "有女朋友了吗？"},
-    {"type": 2, "name": "lipenghui", "content": "没，单身"}
-]}

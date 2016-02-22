@@ -12,55 +12,48 @@ var uglify = require('gulp-uglify');
 var rev = require('gulp-rev');
 var connect = require('gulp-connect');
 var fs = require('fs');
+var webpack = require('webpack-stream');
+var del  = require('del');
 
 if (!fs.existsSync('./dev/config.js')) {
     fs.writeFileSync('./dev/config.js', fs.readFileSync('./dev/config.example.js'));
 }
 var config = require('./dev/config');
 
-/*
- * 执行example的riot编译
- */
-gulp.task('example-riot', function () {
-    return gulp.src(['example/tags/*.tag', 'example/tags/*/*.tag'])
+gulp.task('riot', [], function() {
+    return gulp.src(['src/js/tags-dep.js', 'src/tags/*.tag', 'src/tags/*/*.tag'])
         .pipe(riot())
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest('example/js'))
-        .pipe(connect.reload());
-});
-
-/*
- * watch example的riot编译
- */
-gulp.task('example', ['example-riot'], function () {
-    connect.server({
-        root: './',
-        livereload: {
-            port: config.example.liveReloadPort,
-            src: 'http://localhost:' + config.example.liveReloadPort + '/livereload.js?snipver=1'
-        },
-        port: config.example.port
-    });
-
-    console.log('======> 访问 http://localhost:' + config.example.port + '/example <======');
-    return gulp.watch(['example/tags/*.tag', 'example/tags/*/*.tag', 'example/js/common.js', 'example/css/*.css'], ['example-riot']);
-});
-
-/*
- * 执行src的riot编译
- */
-gulp.task('riot',  function () {
-    return gulp.src(['src/tags/*.tag', 'src/tags/*/*.tag'])
-        .pipe(riot())
-        .pipe(concat('all.js'))
+        .pipe(concat('tags.js'))
         .pipe(gulp.dest('src/js'))
+})
+
+gulp.task('webpack', ['riot'], function() {
+    return gulp.src('src/js/boot.js')
+        .pipe(webpack(require('./webpack.config.js')))
+        .pipe(gulp.dest('src'))
         .pipe(connect.reload());
 });
 
 /*
- * watch src中tag文件的变化，如有变化则执行编译
+ * 清空dist目录
  */
-gulp.task('default', ['riot'], function () {
+gulp.task('clean', function() {
+    return del(['dist']);
+});
+
+gulp.task('dist', ['clean', 'webpack'], function() {
+    return gulp.src('./src/*.html')
+        .pipe(usemin({
+            css: [ minifyCSS, rev ],
+            html: [ function () {return minifyHtml({ empty: true });} ],
+            js: [ uglify, rev ],
+            inlinejs: [ uglify ],
+            inlinecss: [ minifyCSS, 'concat' ]
+        }))
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('default', ['dist'], function() {
     connect.server({
         root: 'src',
         livereload: {
@@ -69,32 +62,5 @@ gulp.task('default', ['riot'], function () {
         },
         port: config.project.port
     });
-    return gulp.watch(['src/tags/*.tag', 'src/tags/*/*.tag'], ['riot']);
+    return gulp.watch(['src/tags/*.tag', 'src/tags/*/*.tag', 'src/js/*.js'], ['webpack']);
 });
-
-/*
- * JS & CSS打包压缩
- */
-gulp.task('usemin', function() {
-  return gulp.src('./src/*.html')
-    .pipe(usemin({
-      css: [ rev ],
-      html: [ function () {return minifyHtml({ empty: true });} ],
-      js: [ uglify, rev ],
-      inlinejs: [ uglify ],
-      inlinecss: [ minifyCSS, 'concat' ]
-    }))
-    .pipe(gulp.dest('dist/'));
-});
-
-/*
- * 拷贝 src/imgs 中的图片到 dist/imgs
- */
-gulp.task('moveImg', function() {
-    return gulp.src('./src/imgs/*').pipe(gulp.dest('dist/imgs'));
-});
-
-/*
- * 编译打包
- */
-gulp.task('dist', ['usemin', 'moveImg'], function () {});
