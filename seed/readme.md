@@ -17,23 +17,25 @@ Riot seed 会一直保持一个Riot 2.2.4版本，这是最后一个宣称可兼
 
 ### 安装和使用
 
-    npm install riot-new -g  //全局安装，安装后可以通过命令行快速创建项目
+    npm install riot-seed -g  //全局安装，安装后可以通过命令行快速创建项目
 
-    riotnew foldername      //在当前目录创建基于最新版本的种子工程
+    riotseed foldername --ie  //在当前目录创建基于2.2.4的IE兼容版本种子工程
+    riotseed foldername      //在当前目录创建基于最新版本的种子工程
     (当前版本采用的是shell脚本，无法在windows下运行)
 
 项目创建成功后使用：
 
     gulp :         监听.tag文件的变更，并启动静态server
     gulp dist :    项目打包
-    gulp example : 监听例子工程中.tag文件变更，并启动静态server
 
 ### Riot-flux使用指南
 
 第一步，使用flux.createStore(options) API创建store, 每一个store对应一个数据资源
 
-    var store = flux.createStore(options)
     
+    import flux from 'riot-seed-flux'
+    var store = flux.createStore(options)
+
 第二步， 数据的获取，options必须拥有一个get方法：
     
     options.get = function(params) {
@@ -94,6 +96,7 @@ Riot seed 会一直保持一个Riot 2.2.4版本，这是最后一个宣称可兼
 根据配置和url，会把对应的组件mount到对应的<route>标签内 
 使用 riotRouter(options) 语法:  
     
+    import riotRouter from 'riot-seed-router'
     riotRouter({
         'app': [
             { route: '/main', tag: 'chat', default: true },

@@ -41,7 +41,14 @@ gulp.task('clean', function() {
     return del(['dist']);
 });
 
-gulp.task('dist', ['clean', 'webpack'], function() {
+/*
+ * 拷贝 src/imgs 中的图片到 dist/imgs
+ */
+gulp.task('move', function() {
+    return gulp.src('./src/imgs/*').pipe(gulp.dest('dist/imgs'));
+});
+
+gulp.task('dist', ['clean', 'webpack', 'move'], function() {
     return gulp.src('./src/*.html')
         .pipe(usemin({
             css: [ minifyCSS, rev ],
