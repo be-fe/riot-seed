@@ -1,6 +1,6 @@
 {
   "name": "riot-seed",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "bin": {
     "riotseed": "./bin/riotseed"
   },

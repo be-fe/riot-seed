@@ -29,8 +29,8 @@
   "dependencies": {
     "riot": "^2.3.11",
     "iutils": "^1.0.6",
-    "riot-seed-flux": "^0.1.4",
-    "riot-seed-router": "^0.1.0"
+    "riot-seed-flux": "^0.1.6",
+    "riot-seed-router": "^0.1.1"
   },
   "author": "xieyu33333",
   "license": "ISC"
