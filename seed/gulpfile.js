@@ -38,13 +38,13 @@ gulp.task('webpack', ['riot'], function() {
  * 清空dist目录
  */
 gulp.task('clean', function() {
-    return del(['dist']);
+    return del(['dist/imgs', 'dist']);
 });
 
 /*
  * 拷贝 src/imgs 中的图片到 dist/imgs
  */
-gulp.task('move', function() {
+gulp.task('move', ['clean'], function() {
     return gulp.src('./src/imgs/*').pipe(gulp.dest('dist/imgs'));
 });
 
