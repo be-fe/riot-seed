@@ -5,3 +5,5 @@ seed/node_modules
 ie-seed/dist
 ie-seed/node_modules
 /seed/dev/config.js
+muti-seed/dist
+muti-seed/node_modules

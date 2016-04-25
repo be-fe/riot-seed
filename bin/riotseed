@@ -2,6 +2,7 @@
 
 fileName='riot-seed-project'
 isIE=0
+isMuti=0
 folder='seed'
 
 for arg in "$@"
@@ -9,6 +10,11 @@ do
     if test $arg = '--ie'
     then 
         isIE=1
+    fi
+
+    if test $arg = '--muti'
+    then 
+        isMuti=1
     fi
 
     if test $arg = $1 && test $arg != '--ie'
@@ -34,13 +40,19 @@ _current_path() {
 
 if test $isIE -eq 0
 then
-    echo 'use riot2.3.11'
+    echo 'use riot2.3.x'
 fi
 
 if test $isIE -eq 1
 then
     folder='ie-seed'
     echo 'use riot2.2.4'
+fi
+
+if test $isMuti -eq 1
+then
+    folder='muti-seed'
+    echo 'use muti page version'
 fi
 
 echo "copying files........"

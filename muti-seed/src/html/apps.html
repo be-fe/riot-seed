@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <title>RiotSeed Demo</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+        <meta name="viewport" content="initial-scale=1">
+        <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <!-- build:css ../css/apps.min.css -->
+        <link href="../css/apps.css" rel="stylesheet">
+        <!-- endbuild -->
+    </head>
+    <body>
+        <nav-bar></nav-bar>
+        <div class="container">
+            <div class="col col-xs-3">
+                <side-bar></side-bar>
+            </div>
+            <div class="col col-xs-9">
+                <apps></apps>
+            </div>
+        </div>
+        <!-- build:js ../js/apps.min.js -->
+        <script src="../js/apps.js"></script>
+        <!-- endbuild -->
+        <script>
+            var pageOpt = new Object;
+            pageOpt.name = "apps";
+            riot.mount('*', pageOpt);
+        </script>
+    </body>
+</html>
