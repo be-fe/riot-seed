@@ -14,7 +14,7 @@
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.0.0",
     "riotjs-loader": "^1.2.0",
-    "webpack-stream": "x",
+    "webpack-stream": "3.2.0",
     "gulp": "3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^2.2.0",
@@ -24,13 +24,14 @@
     "gulp-riot": "^0.3.0",
     "gulp-uglify": "~1.0.1",
     "gulp-usemin": "^0.3.16",
-    "del": "^2.2.0"
+    "del": "^2.2.0",
+    "gulp-less": "3.0.5"
   },
   "dependencies": {
     "riot": "^2.3.11",
     "iutils": "^1.0.6",
     "riot-seed-flux": "^0.1.6",
-    "riot-seed-router": "^0.1.1"
+    "riot-seed-router": "^0.1.4"
   },
   "author": "xieyu33333",
   "license": "ISC"

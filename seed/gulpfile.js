@@ -14,6 +14,8 @@ var connect = require('gulp-connect');
 var fs = require('fs');
 var webpack = require('webpack-stream');
 var del  = require('del');
+var less = require('gulp-less');
+
 
 if (!fs.existsSync('./dev/config.js')) {
     fs.writeFileSync('./dev/config.js', fs.readFileSync('./dev/config.example.js'));
@@ -34,6 +36,14 @@ gulp.task('webpack', ['riot'], function() {
         .pipe(connect.reload());
 });
 
+gulp.task('less', [], function() {
+    return gulp.src(['src/less/*.less', 'src/less/*/*.less', 'src/css/*/*/*.less'])
+        .pipe(less())
+        .pipe(concat('bundle.css'))
+        .pipe(gulp.dest('src'))
+});
+
+
 /*
  * 清空dist目录
  */
@@ -48,7 +58,7 @@ gulp.task('move', ['clean'], function() {
     return gulp.src('./src/imgs/*').pipe(gulp.dest('dist/imgs'));
 });
 
-gulp.task('dist', ['clean', 'webpack', 'move'], function() {
+gulp.task('dist', ['clean', 'webpack', 'less', 'move'], function() {
     return gulp.src('./src/*.html')
         .pipe(usemin({
             css: [ minifyCSS, rev ],
@@ -69,5 +79,6 @@ gulp.task('default', ['dist'], function() {
         },
         port: config.project.port
     });
+    gulp.watch(['src/css/*', 'src/css/*/*','src/css/*/*/*'], ['less']);
     return gulp.watch(['src/tags/*.tag', 'src/tags/*/*.tag', 'src/js/*.js'], ['webpack']);
 });
