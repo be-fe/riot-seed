@@ -94,7 +94,7 @@ Riot seed 会一直保持一个Riot 2.2.4版本，这是最后一个宣称可兼
     
     riotRouter({
         'app': [
-            { route: '/main', tag: 'chat', default: true },
+            { route: '/main', tag: 'chat', default: true, params:{ type: 1 } },
             { route: '/login', tag: 'login'},
             { route: '/history', tag: 'history'},
             { route: '/count', tag: 'count'},
@@ -114,19 +114,20 @@ Riot seed 会一直保持一个Riot 2.2.4版本，这是最后一个宣称可兼
     
 数组前的key是指父元素的选择器
 
-*** riotRouter还可以对参数进行解析：***
+** riotRouter还可以对参数进行解析：**  
 使用`riot.routeParams`进行获取。
 例如我有如下路由：
     
     'history' : [
-        { route: '/history/:pid/:id', tag: 'history-detail'}
+        { route: '/history/:pid/:id', tag: 'history-detail', params: { type: 1 }}
     ],
 
 访问 `#history/1/2` 这样一个url的时候,访问`riot.routeParams` 可以获得：
 
     {
         pid: '1',
-        id: '2'
+        id: '2',
+        params: { type: 1 }
     }
 
 访问 `#history/1/2?name=tom` 这样一个url的时候,访问`riot.routeParams` 可以获得：
@@ -134,7 +135,9 @@ Riot seed 会一直保持一个Riot 2.2.4版本，这是最后一个宣称可兼
     {
         pid: '1',
         id: '2',
+        params: { type: 1 },
         name: 'tom'
     }
 
+可以使用 `riot.routeParams.on('changed', cb )`监听路由的变化。
 
